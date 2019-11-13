@@ -134,7 +134,7 @@ Notification model
 
 ## API Endpoints (backend routes)
 
-| HTTP Method | URL | Request Body | Success status | Error Status | Returns | Details |
+| HTTP Method | URL | Request Body | Success status | Error Status | Returns |         Details            |
 | - | - | - | - | - | - | - |
 | GET | /auth/me | | 201 | 404 | get my user from session |
 | POST | /auth/signup | {name, email, password} | 201 | 404 | | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
