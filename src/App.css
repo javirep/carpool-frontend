@@ -1,0 +1,23 @@
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  padding: 5vh 5vw
+}
+
+.Navbar{
+  display: flex;
+  justify-content: space-between;
+}
+
+.Navbar ul{
+  display: flex;
+  list-style: none;
+}
+
+.Navbar li{
+  margin: 0 10px 0 15px
+}
