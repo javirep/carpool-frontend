@@ -32,14 +32,18 @@ const withAuth = (WrappedComponent) => {
 
 // Provider
 class AuthProvider extends React.Component {
-    state = { isLoggedIn: false, user: null, isLoading: true };
+    state = { isLoggedIn: false, user: null, isLoading: false };
 
     // cuando el componente está montado llamo a la ruta auth.me() y me devuelve los datos del user, que me permiten cambiar los valores de las propiedades del state
     componentDidMount() {
         auth
             .me()
-            .then(user =>
+            .then(user => {
+                console.log("stop loading")
                 this.setState({ isLoggedIn: true, user: user, isLoading: false })
+
+            }
+
             )
             .catch(err =>
                 this.setState({ isLoggedIn: false, user: null, isLoading: false })

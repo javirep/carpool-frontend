@@ -14,6 +14,14 @@ a{
   cursor: pointer;
 }
 
+.button{
+  display: inline-block;
+  background-color: #00aff5;
+  color: white;
+  padding: 20px 20px;
+  border-radius: 45px;
+}
+
 .Navbar{
   padding: 1vh 5vw;
   display: flex;
@@ -45,8 +53,4 @@ header .button {
   position: relative;
   left: 45%;
   top: 70vh;
-  background-color: #00aff5;
-  color: white;
-  padding: 20px 20px;
-  border-radius: 45px;
 }
