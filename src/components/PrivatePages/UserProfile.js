@@ -4,7 +4,7 @@ export default class Private extends Component {
     render() {
         return (
             <div>
-                <h1>This is a private page</h1>
+                <h1>I am the user profile</h1>
             </div>
         )
     }

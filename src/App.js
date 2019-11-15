@@ -7,9 +7,10 @@ import AnonRoute from "./components/AnonRoute"
 import PrivateRoute from "./components/PrivateRoute"
 
 import Navbar from "./components/Navbar"
+import Home from "./components/Home"
 import Signup from "./components/AuthPages/Signup"
 import Login from "./components/AuthPages/Login"
-import Private from "./components/PrivatePages/Private"
+import UserProfile from "./components/PrivatePages/UserProfile"
 
 export default class App extends Component {
   render() {
@@ -17,10 +18,12 @@ export default class App extends Component {
       <AuthProvider>
         <Navbar />
         <Switch>
+          <Route exact path="/" component={Home} />
+          <PrivateRoute exact path="/userprofile" component={UserProfile} />
           <AnonRoute path="/signup" component={Signup} />
           <AnonRoute path="/login" component={Login} />
-          <PrivateRoute path="/private" component={Private} />
         </Switch>
+
       </AuthProvider>
     )
   }

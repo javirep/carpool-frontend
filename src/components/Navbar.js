@@ -3,19 +3,27 @@ import { Link } from "react-router-dom"
 import { withAuth } from "../lib/AuthProvider"
 
 class Navbar extends Component {
+
+    callLogOut() {
+        this.props.logout()
+    }
+
+
     render() {
 
-        const { user, logout, isLoggedin } = this.props;
+        const { user, isLoggedIn } = this.props;
         return (
             <nav className="Navbar">
-                <h1>Carpool</h1>
+                <Link to="/">
+                    <img src="./images/logo.png" alt="logo" />
+                </Link>
                 {
-                    isLoggedin ?
+                    isLoggedIn ?
                         (<ul>
                             <li>Buscar Trayecto</li>
                             <li>Ofrecer Trayecto</li>
-                            <li>Log out</li>
-                            <li>Hi {user.name}</li>
+                            <li><a href="/" onClick={() => this.callLogOut()}>Log Out</a></li>
+                            <li><Link to="/userprofile">Hi {user.name}</Link></li>
                         </ul>)
                         :
                         (<ul>

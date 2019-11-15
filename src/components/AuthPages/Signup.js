@@ -3,13 +3,34 @@ import { Link } from "react-router-dom";
 import { withAuth } from "../../lib/AuthProvider";
 
 class Signup extends Component {
-    state = { username: "", password: "" };
+    state = {
+        name: "",
+        lastName: "",
+        email: "",
+        password: "",
+        repeatPassword: "",
+        valid: true
+    };
 
     handleFormSubmit = event => {
         event.preventDefault();
-        const { username, password } = this.state;
-        //console.log('Signup -> form submit', { username, password });
-        this.props.signup({ username, password });
+        const { name, lastName, email, password, repeatPassword, valid } = this.state;
+
+        if (!name || !lastName || !email || !password || !repeatPassword) {
+            this.setState({
+                valid: false
+            })
+        }
+
+        if (password !== repeatPassword) {
+            this.setState({
+                valid: false
+            })
+        }
+
+        if (valid === true) {
+            this.props.signup({ email, password });
+        }
     };
 
     handleChange = event => {
@@ -18,16 +39,25 @@ class Signup extends Component {
     };
 
     render() {
-        const { username, password } = this.state;
+        const { name, lastName, email, password, repeatPassword } = this.state;
         return (
             <div>
                 <form onSubmit={this.handleFormSubmit}>
 
-                    <label>Username:</label>
-                    <input type="text" name="username" value={username} onChange={this.handleChange} />
+                    <label>Nombre</label>
+                    <input type="text" name="name" value={name} onChange={this.handleChange} />
 
-                    <label>Password:</label>
+                    <label>Apellidos</label>
+                    <input type="text" name="lastName" value={lastName} onChange={this.handleChange} />
+
+                    <label>e-mail</label>
+                    <input type="text" name="email" value={email} onChange={this.handleChange} />
+
+                    <label>contraseña</label>
                     <input type="password" name="password" value={password} onChange={this.handleChange} />
+
+                    <label>Repite la contraseña</label>
+                    <input type="text" name="repeatPassword" value={repeatPassword} onChange={this.handleChange} />
 
                     <input type="submit" value="Signup" />
                 </form>
