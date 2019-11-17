@@ -10,7 +10,10 @@ import Navbar from "./components/Navbar"
 import Home from "./components/Home"
 import Signup from "./components/AuthPages/Signup"
 import Login from "./components/AuthPages/Login"
-import UserProfile from "./components/PrivatePages/UserProfile"
+import UserProfile from "./components/PrivatePages/Profile/UserProfile"
+import CreateRide from './components/PrivatePages/Rides/CreateRide';
+import FindRide from './components/PrivatePages/Rides/FindRide';
+import OtherProfile from './components/PrivatePages/Profile/OtherProfile';
 
 export default class App extends Component {
   render() {
@@ -20,8 +23,12 @@ export default class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <PrivateRoute exact path="/userprofile" component={UserProfile} />
-          <AnonRoute path="/signup" component={Signup} />
-          <AnonRoute path="/login" component={Login} />
+          <PrivateRoute exact path="/createRide" component={CreateRide} />
+          <PrivateRoute exact path="/findRide" component={FindRide} />
+          <PrivateRoute exact path="/user/:theOtherUserId" component={OtherProfile} />
+          <AnonRoute exact path="/signup" component={Signup} />
+          <AnonRoute exact path="/login" component={Login} />
+
         </Switch>
 
       </AuthProvider>

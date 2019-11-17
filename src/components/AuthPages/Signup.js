@@ -29,7 +29,7 @@ class Signup extends Component {
         }
 
         if (valid === true) {
-            this.props.signup({ email, password });
+            this.props.signup({ name, lastName, email, password });
         }
     };
 
@@ -42,28 +42,35 @@ class Signup extends Component {
         const { name, lastName, email, password, repeatPassword } = this.state;
         return (
             <div>
-                <form onSubmit={this.handleFormSubmit}>
+                <form className="form" onSubmit={this.handleFormSubmit}>
+                    <h2> Registrate y empieza a compartir</h2>
+                    <div>
+                        <p>Nombre</p>
+                        <input type="text" name="name" value={name} onChange={this.handleChange} />
+                    </div>
 
-                    <label>Nombre</label>
-                    <input type="text" name="name" value={name} onChange={this.handleChange} />
+                    <div>
+                        <p>Apellidos</p>
+                        <input type="text" name="lastName" value={lastName} onChange={this.handleChange} />
+                    </div>
 
-                    <label>Apellidos</label>
-                    <input type="text" name="lastName" value={lastName} onChange={this.handleChange} />
+                    <div>
+                        <p>e-mail</p>
+                        <input type="mail" name="email" value={email} onChange={this.handleChange} />
+                    </div>
 
-                    <label>e-mail</label>
-                    <input type="text" name="email" value={email} onChange={this.handleChange} />
+                    <div>
+                        <p>contraseña</p>
+                        <input type="password" name="password" value={password} onChange={this.handleChange} />
+                    </div>
 
-                    <label>contraseña</label>
-                    <input type="password" name="password" value={password} onChange={this.handleChange} />
+                    <div>
+                        <p>Repite la contraseña</p>
+                        <input type="password" name="repeatPassword" value={repeatPassword} onChange={this.handleChange} />
+                    </div>
 
-                    <label>Repite la contraseña</label>
-                    <input type="text" name="repeatPassword" value={repeatPassword} onChange={this.handleChange} />
-
-                    <input type="submit" value="Signup" />
+                    <button type="submit" className="button" value="Signup" > Sign up </button>
                 </form>
-
-                <p>Already have account?</p>
-                <Link to={"/login"}> Login</Link>
             </div>
         );
     }
