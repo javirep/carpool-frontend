@@ -4,26 +4,29 @@ import axios from "axios";
 
 class CreateRide extends Component {
     state = {
-        departureTime: "",
+        departureTime: "09:00",
         departureZip: "",
         departurePlace: "",
-        arrivalTime: "",
+        arrivalTime: "09:30",
         arrivalZip: "",
         arrivalPlace: "",
         frequency: "L-V",
         car: true,
-        validForm: false,
-        showLink: false
+        showLink: false,
+        errorMessage: ""
     };
 
     handleFormSubmit = async event => {
         console.log(this.state)
         event.preventDefault();
-        const { departureTime, departureZip, departurePlace, arrivalTime, arrivalZip, arrivalPlace, frequency, car, validForm } = this.state;
+        let validForm = false
+        const { departureTime, departureZip, departurePlace, arrivalTime, arrivalZip, arrivalPlace, frequency, car } = this.state;
 
         if (departureTime && departureZip && departurePlace && arrivalTime && arrivalZip && arrivalPlace && frequency) {
+            validForm = true
+        } else {
             this.setState({
-                validForm: true
+                errorMessage: "por favor, rellena todos los campos"
             })
         }
 
@@ -37,15 +40,15 @@ class CreateRide extends Component {
                 showLink: true
             })
             this.setState({
-                departureTime: "",
+                departureTime: "09:00",
                 departureZip: "",
                 departurePlace: "",
-                arrivalTime: "",
+                arrivalTime: "09:30",
                 arrivalZip: "",
                 arrivalPlace: "",
                 frequency: "L-V",
                 car: true,
-                validForm: false,
+                errorMessage: ""
             })
         }
 
@@ -62,11 +65,11 @@ class CreateRide extends Component {
     }
 
     render() {
-        const { departureTime, departureZip, departurePlace, arrivalTime, arrivalZip, arrivalPlace, frequency } = this.state;
+        const { departureTime, departureZip, departurePlace, arrivalTime, arrivalZip, arrivalPlace, frequency, errorMessage } = this.state;
         return (
             <div>
                 <form className="form" onSubmit={this.handleFormSubmit}>
-                    <h2>Crea tu trayecto</h2>
+                    <h2>Publica tu trayecto</h2>
                     <div>
                         <p>De</p>
                         <input style={{ width: "20vw" }} type="text" name="departurePlace" placeholder="Plaza o calle" value={departurePlace} onChange={this.handleChange} />
@@ -81,10 +84,10 @@ class CreateRide extends Component {
                     </div>
                     <div>
                         <p style={{ position: "relative", left: "2.6vw" }}>Hora de salida</p>
-                        <input style={{ width: "12vw", position: "relative", left: "2.6vw" }} type="number" name="departureTime" placeholder="9.00?" value={departureTime} onChange={this.handleChange} />
+                        <input style={{ width: "12vw", position: "relative", left: "2.6vw" }} type="time" name="departureTime" placeholder="9.00?" value={departureTime} onChange={this.handleChange} />
 
                         <p style={{ width: "auto", position: "relative", left: "4vw" }}>Hora de llegada</p>
-                        <input style={{ width: "12vw", position: "relative", left: "4vw" }} type="number" name="arrivalTime" placeholder="9.30?" value={arrivalTime} onChange={this.handleChange} />
+                        <input style={{ width: "12vw", position: "relative", left: "4vw" }} type="time" name="arrivalTime" placeholder="9.30?" value={arrivalTime} onChange={this.handleChange} />
                     </div>
 
                     <div>
@@ -102,16 +105,24 @@ class CreateRide extends Component {
                             <option value="No" >No</option>
                         </select>
                     </div>
-
-
-                    <button className="button" type="submit" value="Signup">Ofrecer trayecto</button>
                     {
-                        this.state.showLink ? (
+                        errorMessage ?
+                            <span> {errorMessage}</span>
+                            :
+                            <></>
+                    }
+
+                    {
+
+                        !this.state.showLink ?
+
+                            <button className="button" type="submit" value="Signup">Publicar trayecto</button>
+                            :
                             <>
-                                <p>Muchas gracias por ofrecer tu trayecto! Puedes verlo en tu perfil:</p>
-                                <Link to="/userprofile">Ir al perfil</Link>
+                                <h3>Tu trayecto ha sido actualizado correctamente</h3>
+                                <Link className="button" to="/userprofile">Ir al perfil</Link>
                             </>
-                        ) : <></>
+
                     }
                 </form>
             </div>

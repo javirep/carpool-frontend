@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import axios from "axios";
 import { withAuth } from '../../../lib/AuthProvider';
 import Ride from "./Ride"
-import ProfileNotification from "./ProfileNotification"
 
 class OtherProfile extends Component {
 
     state = {
-        theOtherUser: {},
+        theOtherUser: null,
         notificationMessage: "",
         notificationSuccesfull: false
     }
@@ -59,59 +58,68 @@ class OtherProfile extends Component {
     render() {
 
         const { theOtherUser } = this.state;
-        const flex = {
-            display: "flex",
-        }
 
         return (
-            <div style={flex}>
-                <div>
-                    <h2>{theOtherUser.name}</h2>
-                    <p className="button" onClick={(() => this.toggleNotifications())}>
-                        {
-                            this.state.displayNotifications ? "Ver Trayectos" : "Enviar Notificación"
-                        }
-                    </p>
-                </div>
-
-                <div>
-                    {
-                        this.state.displayNotifications ? (
-                            <>
-                                <h2>Escribe una notificación</h2>
-
-                                <form>
-                                    <input type="textArea" onChange={(e) => this.handleChange(e)} name="notificationMessage" value={this.state.notificationMessage} />
+            <div className="main-profile-container">
+                {
+                    !theOtherUser ?
+                        <p>loading...</p>
+                        :
+                        <>
+                            <section className="profile-section profile-user-info">
+                                <h2>{theOtherUser.name} {theOtherUser.lastName}</h2>
+                                <p className="button" onClick={(() => this.toggleNotifications())}>
                                     {
-                                        this.state.notificationSuccesfull ?
-                                            <p> Tu notifiación se ha enviado correctamente</p>
-                                            :
-                                            <button type="Submit" onClick={(e) => this.sendMessage(e)}>Enviar mensaje</button>
-
+                                        this.state.displayNotifications ? "Ver Trayectos" : "Enviar Notificación"
                                     }
-                                </form>
-                            </>
-                        )
-                            :
-                            (
-                                <>
-                                    <h2>Trayectos de {theOtherUser.name}</h2>
-                                    {/* {
-                                        theOtherUser.rides.length === 0 ?
-                                            <p>Este usuario no tiene ningún trayecto</p>
-                                            : (
-                                                theOtherUser.rides.map((ride, index) => {
-                                                    console.log(ride)
-                                                    return <Ride key={index} index={index} ride={ride} />
-                                                })
-                                            )
+                                </p>
+                            </section>
 
-                                    } */}
+                            <div>
+                                {
+                                    this.state.displayNotifications ? (
+                                        <section className="profile-section profile-notifications-section">
+                                            <h2>Escribe una notificación</h2>
 
-                                </>
-                            )
-                    }
-                </div>
+                                            <form className="seding-notification-form">
+                                                <textarea onChange={(e) => this.handleChange(e)} name="notificationMessage" value={this.state.notificationMessage} />
+
+                                                {
+                                                    this.state.notificationSuccesfull ?
+                                                        <p style={{ fontSize: "16px" }}>Tu notifiación se ha enviado correctamente</p>
+                                                        :
+                                                        <button className="button" type="Submit" onClick={(e) => this.sendMessage(e)}>Enviar Notificación</button>
+
+                                                }
+                                            </form>
+                                        </section>
+                                    )
+                                        :
+                                        (
+                                            <section className="profile-section profile-rides-section">
+                                                <h2>Trayectos de {theOtherUser.name} ({theOtherUser.rides.length})</h2>
+                                                <div className="profile-rides-div">
+                                                    {
+                                                        theOtherUser.rides.length === 0 ?
+                                                            <p>Este usuario no tiene ningún trayecto</p>
+                                                            : (
+                                                                theOtherUser.rides.map((ride, index) => {
+                                                                    console.log(ride)
+                                                                    return <Ride key={index} index={index} ride={ride} />
+                                                                })
+                                                            )
+
+                                                    }
+                                                </div>
+
+                                            </section>
+                                        )
+                                }
+                            </div>
+                        </>
+                }
+
+
             </div>
         )
     }

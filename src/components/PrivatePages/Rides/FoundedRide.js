@@ -7,10 +7,17 @@ export default function Ride(props) {
         <div className="ride-card">
             <div>
                 <h2>{user.name} {user.lastName}</h2>
-                <p>de: {props.ride.departure.departurePlace}, {props.ride.departure.departureZip} at {props.ride.departure.departureTime}</p>
-                <p>a: {props.ride.arrival.arrivalPlace}, {props.ride.arrival.arrivalZip} at {props.ride.arrival.arrivalTime}</p>
+                <p> <b>Salida</b> {props.ride.departure.departurePlace} a las {props.ride.departure.departureTime} h</p>
+                <p> <b>Llegada</b> {props.ride.arrival.arrivalPlace}a las  {props.ride.arrival.arrivalTime} h</p>
+                <p><b>Frecuencia</b> {props.ride.frequency}</p>
+                {
+                    props.ride.car ?
+                        <p>Con coche <i class="fas fa-car"></i></p>
+                        :
+                        <p>Sin coche <i class="fas fa-shoe-prints"></i></p>
+                }
             </div>
-            <p>frecuencia: {props.ride.frequency}</p>
+
             <Link to={`/user/${user._id}`} className="button">Ver perfil</Link>
         </div>
     )

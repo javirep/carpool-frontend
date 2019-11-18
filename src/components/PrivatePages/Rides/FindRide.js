@@ -42,14 +42,9 @@ class FindRide extends Component {
                 carFilter: true
             })
         }
-        if (value === "No") {
-            this.setState({
-                carFilter: false
-            })
-        }
         if (value === "") {
             this.setState({
-                carFilter: "Both"
+                carFilter: ""
             })
         }
     }
@@ -64,11 +59,14 @@ class FindRide extends Component {
             const containFrequency = ride.frequency.includes(this.state.frequencyFilter)
             var containCar = false
 
-            if (this.state.carFilter === "Both") {
-                containCar = true
-            } else if (this.state.carFilter === ride.car) {
+            if (!this.state.carFilter) {
                 containCar = true
             }
+
+            if (this.state.carFilter === ride.car) {
+                containCar = true
+            }
+
 
             return (this.props.user._id !== ride.user._id && containDepartureZip && containArrivalZip && containDepartureTime && containArrivalTime && containFrequency && containCar)
         })
@@ -81,30 +79,30 @@ class FindRide extends Component {
 
         return (
             <div style={{ display: "flex", margin: "0 5vw" }}>
-                <form className="center-form form ">
+                <form className="search-form form ">
                     <h2>Filtra tu búsqueda</h2>
                     <div>
-                        <p>De</p>
+                        <span>De</span>
                         <input type="text" name="fromFilter" placeholder="Código Postal" value={fromFilter} onChange={this.handleChange} />
                     </div>
 
                     <div>
-                        <p>A</p>
+                        <span>A</span>
                         <input type="text" name="toFilter" placeholder="Código Postal" value={toFilter} onChange={this.handleChange} />
                     </div>
 
                     <div>
-                        <p>Salir</p>
-                        <input type="number" name="departureTimeFilter" placeholder="9.00?" value={departureTimeFilter} onChange={this.handleChange} />
+                        <span>Salir</span>
+                        <input type="time" name="departureTimeFilter" value={departureTimeFilter} onChange={this.handleChange} />
                     </div>
 
                     <div>
-                        <p>Llegar</p>
-                        <input type="number" name="arrivalTimeFilter" placeholder="9.30?" value={arrivalTimeFilter} onChange={this.handleChange} />
+                        <span>Llegar</span>
+                        <input type="time" name="arrivalTimeFilter" value={arrivalTimeFilter} onChange={this.handleChange} />
                     </div>
 
                     <div>
-                        <p>Frecuencia</p>
+                        <span>Frecuencia</span>
                         <select className="input select-input" name="frequencyFilter" value={frequencyFilter} onChange={this.handleChange}>
                             <option value=""> Cualquiera </option>
                             <option value="L-V">Lunes a Viernes</option>
@@ -115,22 +113,21 @@ class FindRide extends Component {
                     </div>
 
                     <div>
-                        <p>Car</p>
+                        <span>Car</span>
                         <select className="input select-input" name="CarFilter" onChange={this.handleChangeCar}>
                             <option value=""> Indiferente</option>
                             <option value="Si" >Si</option>
-                            <option value="No" >No</option>
                         </select>
                     </div>
                 </form>
-                <div>
+                <div className="founded-ride-container">
                     {
                         filteredRides.length > 0 ? (
                             filteredRides.map((ride, key) => {
                                 return <FoundedRide key={key} index={key} ride={ride} />
                             })) : (
                                 <>
-                                    <p>No hay ningún trayecto que coincida, ¿podrías crear uno nuevo?</p>
+                                    <p style={{ fontSize: "16px" }}>No hay ningún trayecto que coincida, ¿podrías crear uno nuevo?</p>
                                     <Link className="button" to="createRide"> Crear Trayecto </Link>
                                 </>
                             )

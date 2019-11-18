@@ -23,13 +23,13 @@ class Navbar extends Component {
                     isLoggedIn ?
                         (<ul>
                             <li><Link to="/findRide"> Buscar Trayecto</Link></li>
-                            <li><Link to="/createRide"> Ofrecer Trayecto</Link></li>
+                            <li><Link to="/createRide"> Publicar Trayecto</Link></li>
                             <li><a href="/" onClick={() => this.callLogOut()}>Log Out</a></li>
                             <li><Link to="/userprofile"> Hi {user.name}  </Link></li>
                         </ul>)
                         :
                         (<ul>
-                            <li><Link to="/createRide"> Ofrecer Trayecto</Link></li>
+                            <li><Link to="/createRide"> Publicar Trayecto</Link></li>
                             <li><Link to="/signup">Sign Up</Link></li>
                             <li><Link to="/login">Log In</Link></li>
                         </ul>)

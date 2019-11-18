@@ -13,7 +13,7 @@ h1{
   font-size: 3em;
 }
 
-a{
+a, i{
   text-decoration: none;
   color: inherit;
   cursor: pointer;
@@ -33,7 +33,7 @@ a{
 }
 
 .Navbar{
-  padding: 1vh 5vw;
+  padding: 3vh 5vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,7 +41,7 @@ a{
 }
 
 .Navbar img{
-  height: 10vh;
+  height: 5vw;
 }
 
 .Navbar ul{
@@ -51,7 +51,7 @@ a{
 
 .Navbar li{
   margin: 0 10px 0 15px;
-  font-size: 2em;
+  font-size: 1.5vw;
 }
 
 header {
@@ -69,7 +69,7 @@ header .button {
 /* SIGN UP */
 
 .form{
-  margin-top: 6vh;
+  margin-top: 4vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -93,7 +93,7 @@ header .button {
 
 .form input, .form .input{
   margin: 2vh;
-  width: 30vw;
+  width: 25vw;
   border: none;
   background-color: #e9e9e9;
   padding: 1.6vh 1.5vw;
@@ -123,16 +123,94 @@ header .button {
   
 }
 
+.search-form{
+  width: 40vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.search-form h2{
+  margin-right:auto;
+  margin-left: auto;
+  padding-left: 5vw;
+}
+
+/* PROFILE */
+
+.main-profile-container{
+  display: flex;
+  justify-content: space-around;
+}
+
+.profile-section{
+  margin: 5vh 0vw;
+  justify-content: center;
+}
+
+.profile-section > h2{
+  text-align: center;
+  font-size: 3em;
+  margin-bottom: 4vh;
+}
+
+.profile-user-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 65vh;
+  width: 20vw;
+}
+
+.profile-rides-section, .profile-notifications-section{
+  height: 65vh;
+  width: 70vw;
+}
+
+.profile-rides-div{
+  height: 65vh;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+}
+
+.notification-card{
+  display: flex;
+  align-items: baseline;
+  font-size: 1.5em;
+  line-height: 2em;
+  padding: 2vh 2vw;
+  border-bottom: 1px solid grey;
+}
+
+.notification-card i{
+  margin: 10px
+}
+
 /* RIDES */
 
 .ride-card{
-  display: "flex";
+  display: flex;
+  flex: auto;
+  align-items: center;
+  width: 40vw;
+  justify-content: space-between;
   border: 2px solid #00aff5;
   border-radius: 15px;
-  padding: 2vh 3vw ;
-  
+  padding: 5% 7% ;
+  margin: 1vh 1vw;
+  font-size: 1.4em;
 }
 
+.founded-ride-container{
+
+  width: 45vw;
+  height: 80vh;
+  overflow-y: scroll;
+}
 
 .red-ball{
   background-color: red;
@@ -140,4 +218,24 @@ header .button {
   width: 10px;
   border-radius: 50%;
   margin-left: 5px
+}
+
+/* OTHER USER PROFILE */
+
+.seding-notification-form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.seding-notification-form textarea{
+  margin-right: 3vw;
+  padding: 3%;
+  vertical-align: text-top;
+  width: 40vw;
+  height: 40vh;
+  font-family: "Nunito";
+  font-size: 16px;
+  border: 2px solid #00aff5;
+  margin-bottom: 5vh
 }

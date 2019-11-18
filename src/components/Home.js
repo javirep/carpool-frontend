@@ -5,7 +5,7 @@ export default class Home extends Component {
     render() {
         return (
             <div>
-                <header><Link to="/" className="button" >Buscar Trayecto</Link></header>
+                <header><Link to="/createRide" className="button" > Publica tu trayecto</Link></header>
             </div>
         )
     }
