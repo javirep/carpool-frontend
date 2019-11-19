@@ -18,7 +18,7 @@ class FindRide extends Component {
 
     async componentDidMount() {
         const apiCaller = axios.create({
-            baseURL: "http://localhost:4000/",
+            baseURL: `${process.env.REACT_APP_API_URI}`,
             withCredentials: true
         })
         const everyRide = await apiCaller.get("ride/everyRide");

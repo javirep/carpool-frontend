@@ -18,9 +18,9 @@ class Ride extends Component {
                         <p><b>Frecuencia</b> {props.ride.frequency}</p>
                         {
                             props.ride.car ?
-                                <p>Con coche <i class="fas fa-car"></i></p>
+                                <p>Con coche <i className="fas fa-car"></i></p>
                                 :
-                                <p>Sin coche <i class="fas fa-shoe-prints"></i></p>
+                                <p>Sin coche <i className="fas fa-shoe-prints"></i></p>
                         }
                     </div>
                     {

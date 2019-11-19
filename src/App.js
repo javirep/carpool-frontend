@@ -15,6 +15,7 @@ import CreateRide from './components/PrivatePages/Rides/CreateRide';
 import FindRide from './components/PrivatePages/Rides/FindRide';
 import OtherProfile from './components/PrivatePages/Profile/OtherProfile';
 import EditRide from './components/PrivatePages/Rides/EditRide';
+import EditProfileInfo from "./components/PrivatePages/Profile/EditProfileInfo"
 
 export default class App extends Component {
   render() {
@@ -24,6 +25,7 @@ export default class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <PrivateRoute exact path="/userprofile" component={UserProfile} />
+          <PrivateRoute exact path="/editProfileInfo" component={EditProfileInfo} />
           <PrivateRoute exact path="/createRide" component={CreateRide} />
           <PrivateRoute exact path="/editRide/:rideId" component={EditRide} />
           <PrivateRoute exact path="/findRide" component={FindRide} />

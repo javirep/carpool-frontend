@@ -13,7 +13,7 @@ class OtherProfile extends Component {
 
     async componentDidMount() {
         const apiCall = axios.create({
-            baseURL: "http://localhost:4000/user/",
+            baseURL: `${process.env.REACT_APP_API_URI}/user/`,
             withCredentials: true
         })
         const { theOtherUserId } = this.props.match.params
@@ -44,7 +44,7 @@ class OtherProfile extends Component {
         console.log(theOtherUser._id) */
 
         const apiCall = axios.create({
-            baseURL: "http://localhost:4000/",
+            baseURL: `${process.env.REACT_APP_API_URI}`,
             withCredentials: true
         })
         await apiCall.post("notification/", ({ "message": notificationMessage, "receiverId": theOtherUser._id }))

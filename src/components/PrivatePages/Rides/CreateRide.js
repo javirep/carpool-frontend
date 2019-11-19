@@ -32,7 +32,7 @@ class CreateRide extends Component {
 
         if (validForm === true) {
             const apiCaller = axios.create({
-                baseURL: "http://localhost:4000/",
+                baseURL: `${process.env.REACT_APP_API_URI}`,
                 withCredentials: true
             })
             await apiCaller.post("ride/", ({ departureTime, departureZip, departurePlace, arrivalTime, arrivalZip, arrivalPlace, frequency, car }));

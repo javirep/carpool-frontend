@@ -2,8 +2,26 @@ import React, { Component } from 'react'
 import { Link } from "react-router-dom"
 import { withAuth } from "../lib/AuthProvider"
 import logo from "./logo.png"
+import axios from "axios"
 
 class Navbar extends Component {
+
+    state = {
+        user: null
+    }
+
+    async componentDidMount() {
+        const apiCall = axios.create({
+            baseURL: `${process.env.REACT_APP_API_URI}`,
+            withCredentials: true
+        })
+
+        const user = await apiCall.get("auth/me")
+
+        this.setState({
+            user: user.data
+        })
+    }
 
     callLogOut() {
         this.props.logout()
@@ -12,7 +30,7 @@ class Navbar extends Component {
 
     render() {
 
-        const { user, isLoggedIn } = this.props;
+        const { user } = this.props;
 
         return (
             <nav className="Navbar">
@@ -20,11 +38,11 @@ class Navbar extends Component {
                     <img src={logo} alt="logo" />
                 </Link>
                 {
-                    isLoggedIn ?
+                    user ?
                         (<ul>
                             <li><Link to="/findRide"> Buscar Trayecto</Link></li>
                             <li><Link to="/createRide"> Publicar Trayecto</Link></li>
-                            <li><a href="/" onClick={() => this.callLogOut()}>Log Out</a></li>
+                            <li><Link to="/" onClick={() => this.callLogOut()}>Log Out</Link></li>
                             <li><Link to="/userprofile"> Hi {user.name}  </Link></li>
                         </ul>)
                         :

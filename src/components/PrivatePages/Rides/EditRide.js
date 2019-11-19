@@ -21,7 +21,7 @@ class EditRide extends Component {
     async componentDidMount() {
         const { rideId } = this.props.match.params
         const apiCaller = axios.create({
-            baseURL: "http://localhost:4000/",
+            baseURL: `${process.env.REACT_APP_API_URI}`,
             withCredentials: true
         })
         let ride = await apiCaller.get(`ride/${rideId}`);
@@ -56,7 +56,7 @@ class EditRide extends Component {
 
         if (validForm === true) {
             const apiCaller = axios.create({
-                baseURL: "http://localhost:4000/",
+                baseURL: `${process.env.REACT_APP_API_URI}`,
                 withCredentials: true
             })
             await apiCaller.put(`ride/${rideId}`, ({ departureTime, departureZip, departurePlace, arrivalTime, arrivalZip, arrivalPlace, frequency, car }));

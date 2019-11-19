@@ -16,7 +16,7 @@ class UserProfile extends Component {
   async componentDidMount() {
 
     const apiCall = axios.create({
-      baseURL: "http://localhost:4000/",
+      baseURL: `${process.env.REACT_APP_API_URI}`,
       withCredentials: true
     })
 
@@ -27,8 +27,12 @@ class UserProfile extends Component {
     })
 
     const everyNotification = await apiCall.get("notification")
+    const orderedNotification = [...everyNotification.data].sort((a, b) => {
+      return new Date(b.date) - new Date(a.date)
+    })
+    console.log(orderedNotification)
     this.setState({
-      notifications: everyNotification.data
+      notifications: orderedNotification
     })
     console.log("Finished mounting the Profile")
   }
@@ -40,17 +44,20 @@ class UserProfile extends Component {
 
     if (this.props.user.newNotification) {
       const apiCall = axios.create({
-        baseURL: "http://localhost:4000/",
+        baseURL: `${process.env.REACT_APP_API_URI}`,
         withCredentials: true
       })
       await apiCall.post("notification/notificationSeen")
-      this.props.user.newNotification = false
+      const userUpdated = await apiCall.get("auth/me")
+      this.setState({
+        user: userUpdated.data
+      })
     }
   }
 
   deleteRide = async (id) => {
     const apiCall = axios.create({
-      baseURL: "http://localhost:4000/",
+      baseURL: `${process.env.REACT_APP_API_URI}`,
       withCredentials: true
     })
 
@@ -69,7 +76,7 @@ class UserProfile extends Component {
     console.log("deleteNotification has been called")
     console.log(id)
     const apiCall = axios.create({
-      baseURL: "http://localhost:4000/",
+      baseURL: `${process.env.REACT_APP_API_URI}`,
       withCredentials: true
     })
 
@@ -101,8 +108,11 @@ class UserProfile extends Component {
           :
           <>
             <section className="profile-section profile-user-info">
+              <img src={user.imagePath} alt="user image" />
               <h2>{user.name} {user.lastName}</h2>
+              <Link to="/editProfileInfo">edit profile info</Link>
               <p className="button" onClick={(() => this.toggleNotifications())}>
+
                 {
                   this.state.displayNotifications ? "Ver Trayectos" : (
                     <>

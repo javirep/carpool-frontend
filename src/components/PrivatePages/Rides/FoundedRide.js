@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom"
+import moment from "moment"
+moment.locale("es")
 
 export default function Ride(props) {
     const { user } = props.ride
@@ -15,6 +17,10 @@ export default function Ride(props) {
                         <p>Con coche <i class="fas fa-car"></i></p>
                         :
                         <p>Sin coche <i class="fas fa-shoe-prints"></i></p>
+                }
+                {
+                    props.ride.updated_at ?
+                        <p>Publicado {moment(props.ride.updated_at).fromNow()}</p> : <p>Publicado {moment(props.ride.created_at).fromNow()}</p>
                 }
             </div>
 

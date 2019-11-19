@@ -28,6 +28,7 @@ class Signup extends Component {
         }
 
         if (valid === true) {
+            console.log("from Signup.js" + name, lastName, email, password)
             this.props.signup({ name, lastName, email, password });
         }
     };

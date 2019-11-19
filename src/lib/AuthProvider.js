@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Route, Redirect } from "react-router-dom";
 import auth from "./auth-service";
 
 const { Consumer, Provider } = React.createContext();
@@ -51,10 +52,10 @@ class AuthProvider extends React.Component {
     }
 
     signup = user => {
-        const { email, password } = user;
+        const { email, password, lastName, name } = user;
 
         auth
-            .signup({ email, password })
+            .signup({ email, password, lastName, name })
             .then(user => this.setState({ isLoggedIn: true, user }))
             .catch(({ response }) =>
                 this.setState({ message: response.data.statusMessage })
@@ -73,7 +74,10 @@ class AuthProvider extends React.Component {
     logout = () => {
         auth
             .logout()
-            .then(() => this.setState({ isLoggedIn: false, user: null }))
+            .then(() => {
+                this.setState({ isLoggedIn: false, user: null })
+
+            })
             .catch(err => console.log(err));
     };
 
