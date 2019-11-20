@@ -2,13 +2,31 @@ import React, { Component } from "react";
 import { withAuth } from "../../lib/AuthProvider";
 
 class Login extends Component {
-    state = { email: "", password: "" };
+    state = { email: "", password: "", errorMessage: "" };
 
-    handleFormSubmit = event => {
+    handleFormSubmit = async event => {
+
         event.preventDefault();
+        let validForm = true
+        let errorMessage = ""
         const { email, password } = this.state;
-        // console.log('Login -> form submit', { username, password });
-        this.props.login({ email, password });
+
+        if (!email || !password) {
+            validForm = false
+            errorMessage = "Por favor, rellene todos los campos"
+        }
+
+        if (validForm) {
+            const user = await this.props.login({ email, password });
+            if (!user) {
+                errorMessage = "Un momento por favor..."
+            }
+        }
+
+        this.setState({
+            errorMessage
+        })
+
     };
 
     handleChange = event => {
@@ -32,6 +50,12 @@ class Login extends Component {
                     <input type="password" name="password" value={password} onChange={this.handleChange} />
                 </div>
 
+                {
+                    this.state.errorMessage ?
+                        <span>{this.state.errorMessage}</span>
+                        :
+                        <></>
+                }
                 <button className="button" type="submit" value="Login" > Log in </button>
             </form>
         );

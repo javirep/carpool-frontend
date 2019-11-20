@@ -32,6 +32,11 @@ a, i{
   text-align: center;
 }
 
+.small-button{
+  font-size: 15px;
+  min-width: 100px;
+}
+
 .Navbar{
   padding: 3vh 5vw;
   display: flex;
@@ -120,7 +125,6 @@ header .button {
 .form .button{
   margin-top: 3vh;
   font-size: 1.3rem;
-  
 }
 
 .search-form{
@@ -162,6 +166,12 @@ header .button {
   align-items: center;
   height: 65vh;
   width: 20vw;
+}
+
+.edit-info-link{
+  font-size: 16px;
+  text-decoration: underline;
+  margin-bottom: 3vh;
 }
 
 .profile-rides-section, .profile-notifications-section{
@@ -251,10 +261,23 @@ header .button {
   z-index: -1;
   }
 
-.file-input-label{
-  cursor:pointer;
+
+label{
+  text-decoration: underline;
+  display: inline-block;
+  text-align: center;
+  margin-left: 4vw ;
 }
 
-.file-input:focus + label{
-  text-decoration: underline;
+/* OTHERS */
+
+.empty-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: center;
+}
+
+.empty-info > * {
+  margin-top: 5vh
 }

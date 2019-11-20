@@ -110,7 +110,7 @@ class UserProfile extends Component {
             <section className="profile-section profile-user-info">
               <img src={user.imagePath} alt="user image" style={{ width: "10vw" }} />
               <h2>{user.name} {user.lastName}</h2>
-              <Link to="/editProfileInfo">edit profile info</Link>
+              <Link className="edit-info-link" to="/editProfileInfo">edit profile info</Link>
               <p className="button" onClick={(() => this.toggleNotifications())}>
 
                 {
@@ -151,24 +151,24 @@ class UserProfile extends Component {
                   </section>
                 )
                   :
-                  (
-                    <section className="profile-section profile-rides-section">
-                      <h2>Tus trayectos ({user.rides.length})</h2>
-                      <div className="profile-rides-div">
-                        {
-                          user.rides.length === 0 ?
-                            <Link className="button" to="/createRide">Create a new ride!</Link>
-                            : (
-                              user.rides.map((ride, index) => {
-                                return <Ride style={{ width: "400px" }} key={index} index={index} ride={ride} deleteRide={this.deleteRide} myRide={true} />
-                              })
-                            )
 
-                        }
-                      </div>
+                  <section className="profile-section profile-rides-section">
+                    <h2>Tus trayectos ({user.rides.length})</h2>
 
-                    </section>
-                  )
+                    {
+                      user.rides.length === 0 ?
+                        <div className="empty-info">
+                          <span style={{ fontSize: "16px" }}>No tienes ningún trayecto publicado</span>
+                          <Link className="button" to="/createRide">Publicar un Trayecto</Link>
+                        </div>
+                        : <div className="profile-rides-div">
+                          {user.rides.map((ride, index) => {
+                            return <Ride style={{ width: "400px" }} key={index} index={index} ride={ride} deleteRide={this.deleteRide} myRide={true} />
+                          })}
+                        </div>
+                    }
+                  </section>
+
               }
             </>
 

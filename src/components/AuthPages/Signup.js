@@ -8,29 +8,44 @@ class Signup extends Component {
         email: "",
         password: "",
         repeatPassword: "",
-        valid: true
+        errorMessage: ""
     };
 
-    handleFormSubmit = event => {
+    handleFormSubmit = async event => {
         event.preventDefault();
-        const { name, lastName, email, password, repeatPassword, valid } = this.state;
+        const { name, lastName, email, password, repeatPassword } = this.state;
+        let valid = false;
+        let errorMessage = "";
+        let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/
+
 
         if (!name || !lastName || !email || !password || !repeatPassword) {
-            this.setState({
-                valid: false
-            })
+            errorMessage = "Por favor rellene todos los campos";
+        }
+        else if (!/^[a-zA-Z]/.test(name)) {
+            errorMessage = "Por favor introduce un nombre válido"
+        }
+        else if (!/^[a-zA-Z]/.test(lastName)) {
+            errorMessage = "Por favor introduce un Apellido válido"
+        }
+        else if (!emailRegex.test(email)) {
+            errorMessage = "Email no válido";
+        }
+        else if (password !== repeatPassword) {
+            errorMessage = "La contraseñas no coinciden"
+        }
+        else {
+            valid = true
         }
 
-        if (password !== repeatPassword) {
-            this.setState({
-                valid: false
-            })
+        if (valid) {
+            await this.props.signup({ name, lastName, email, password });
+            errorMessage = "Un momento por favor"
         }
 
-        if (valid === true) {
-            console.log("from Signup.js" + name, lastName, email, password)
-            this.props.signup({ name, lastName, email, password });
-        }
+        this.setState({
+            errorMessage
+        })
     };
 
     handleChange = event => {
@@ -68,6 +83,13 @@ class Signup extends Component {
                         <p>Repite la contraseña</p>
                         <input type="password" name="repeatPassword" value={repeatPassword} onChange={this.handleChange} />
                     </div>
+
+                    {
+                        this.state.errorMessage ?
+                            <span>{this.state.errorMessage}</span>
+                            :
+                            <></>
+                    }
 
                     <button type="submit" className="button" value="Signup" > Sign up </button>
                 </form>

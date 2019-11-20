@@ -17,18 +17,19 @@ class CreateRide extends Component {
     };
 
     handleFormSubmit = async event => {
-        console.log(this.state)
         event.preventDefault();
         let validForm = false
+        let errorMessage = ""
         const { departureTime, departureZip, departurePlace, arrivalTime, arrivalZip, arrivalPlace, frequency, car } = this.state;
 
-        if (departureTime && departureZip && departurePlace && arrivalTime && arrivalZip && arrivalPlace && frequency) {
-            validForm = true
-        } else {
-            this.setState({
-                errorMessage: "por favor, rellena todos los campos"
-            })
+        if (!departureTime || !departureZip || !departurePlace || !arrivalTime || !arrivalZip || !arrivalPlace || !frequency) {
+            console.log("Por favor, rellena todos los campos")
+            errorMessage = "Por favor, rellena todos los campos"
         }
+        else if (!/(\d{5})/g.test(departureZip)) {
+            errorMessage = "Por favor, introduce un código postal válido"
+        }
+        else { validForm = true }
 
         if (validForm === true) {
             const apiCaller = axios.create({
@@ -50,8 +51,12 @@ class CreateRide extends Component {
                 car: true,
                 errorMessage: ""
             })
+
         }
 
+        this.setState({
+            errorMessage
+        })
     };
 
     handleChange = event => {

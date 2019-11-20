@@ -97,7 +97,8 @@ class EditProfileInfo extends Component {
                                 </div>
                                 <div>
                                     <input type="file" className="file-input" name="file" id="file" onChange={(e) => this.handleFileUpload(e)} />
-                                    <label className="file-input-label" for="file">
+                                    <p></p>
+                                    <label className="input select-input file-input-label" htmlFor="file">
                                         {
                                             this.state.fileName === "" ?
                                                 <><i className="fas fa-upload"></i> Cambiar foto de perfil</>

@@ -3,6 +3,7 @@ import axios from "axios";
 import FoundedRide from "./FoundedRide"
 import { withAuth } from "../../../lib/AuthProvider"
 import { Link } from "react-router-dom"
+import { directiveLiteral } from '@babel/types';
 
 class FindRide extends Component {
 
@@ -120,19 +121,22 @@ class FindRide extends Component {
                         </select>
                     </div>
                 </form>
-                <div className="founded-ride-container">
-                    {
-                        filteredRides.length > 0 ? (
-                            filteredRides.map((ride, key) => {
-                                return <FoundedRide key={key} index={key} ride={ride} />
-                            })) : (
-                                <>
-                                    <p style={{ fontSize: "16px" }}>No hay ningún trayecto que coincida, ¿podrías crear uno nuevo?</p>
-                                    <Link className="button" to="createRide"> Crear Trayecto </Link>
-                                </>
-                            )
-                    }
-                </div>
+                {
+                    filteredRides.length > 0 ?
+                        <div className="founded-ride-container">
+                            {
+                                filteredRides.map((ride, key) => {
+                                    return <FoundedRide key={key} index={key} ride={ride} />
+                                })
+                            }
+                        </div>
+                        :
+                        <div className="empty-info">
+                            <p style={{ fontSize: "16px" }}>No hay ningún trayecto que coincida, ¿podrías crear uno nuevo?</p>
+                            <Link className="button" to="createRide"> Crear Trayecto </Link>
+                        </div>
+
+                }
             </div>
         )
     }
