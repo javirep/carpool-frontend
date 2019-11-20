@@ -108,7 +108,7 @@ class UserProfile extends Component {
           :
           <>
             <section className="profile-section profile-user-info">
-              <img src={user.imagePath} alt="user image" />
+              <img src={user.imagePath} alt="user image" style={{ width: "10vw" }} />
               <h2>{user.name} {user.lastName}</h2>
               <Link to="/editProfileInfo">edit profile info</Link>
               <p className="button" onClick={(() => this.toggleNotifications())}>
