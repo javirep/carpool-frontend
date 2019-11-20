@@ -8,7 +8,8 @@ class Signup extends Component {
         email: "",
         password: "",
         repeatPassword: "",
-        errorMessage: ""
+        errorMessage: "",
+        passwordSecurity: ""
     };
 
     handleFormSubmit = async event => {
@@ -31,8 +32,11 @@ class Signup extends Component {
         else if (!emailRegex.test(email)) {
             errorMessage = "Email no válido";
         }
+        else if (password.length < 6) {
+            errorMessage = "La contraseña debe tener más de 6 caracteres";
+        }
         else if (password !== repeatPassword) {
-            errorMessage = "La contraseñas no coinciden"
+            errorMessage = "La contraseñas no coinciden";
         }
         else {
             valid = true
@@ -52,6 +56,26 @@ class Signup extends Component {
         const { name, value } = event.target;
         this.setState({ [name]: value });
     };
+
+    handlePasswordSecurity = () => {
+        console.log("handlePasswordSecurity")
+        const { password } = this.state;
+        console.log(password)
+        let passwordSecurity = ""
+        if (password.length > 6) {
+            passwordSecurity = "Seguridad de contraseña: baja"
+        }
+        if (password.length >= 6 && /\d/.test(password) || password.length >= 6 && /[A-Z]/.test(password)) {
+            passwordSecurity = "Seguridad de contraseña: media"
+        }
+        if (password.length >= 6 && /\d/.test(password) && /[A-Z]/.test(password)) {
+            passwordSecurity = "Password sequrity level: high"
+        }
+
+        this.setState({
+            passwordSecurity
+        })
+    }
 
     render() {
         const { name, lastName, email, password, repeatPassword } = this.state;
@@ -75,8 +99,14 @@ class Signup extends Component {
                     </div>
 
                     <div>
+                        {
+                            this.state.passwordSecurity ?
+                                <span>{this.state.passwordSecurity}</span>
+                                :
+                                <></>
+                        }
                         <p>contraseña</p>
-                        <input type="password" name="password" value={password} onChange={this.handleChange} />
+                        <input type="password" name="password" value={password} onChange={this.handleChange} onFocus={this.handlePasswordSecurity} />
                     </div>
 
                     <div>
