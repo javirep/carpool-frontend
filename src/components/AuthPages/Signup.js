@@ -62,19 +62,27 @@ class Signup extends Component {
         const { password } = this.state;
         console.log(password)
         let passwordSecurity = ""
+        if (password) {
+            passwordSecurity = "Contraseña no válida"
+        }
         if (password.length > 6) {
             passwordSecurity = "Seguridad de contraseña: baja"
         }
-        if (password.length >= 6 && /\d/.test(password) || password.length >= 6 && /[A-Z]/.test(password)) {
+        if (password.length >= 6 && /\d/.test(password) && /[A-Z]/.test(password)) {
             passwordSecurity = "Seguridad de contraseña: media"
         }
-        if (password.length >= 6 && /\d/.test(password) && /[A-Z]/.test(password)) {
-            passwordSecurity = "Password sequrity level: high"
+        if (password.length >= 6 && /\d/.test(password) && /[A-Z]/.test(password) && /[!@#$%^&*(),.?":{}|<>]/g.test(password)) {
+            passwordSecurity = "Seguridad de la contraseña: alta"
         }
 
         this.setState({
             passwordSecurity
         })
+    }
+
+    handleChangeAndPasswordSecurity = async (event) => {
+        await this.handleChange(event);
+        await this.handlePasswordSecurity();
     }
 
     render() {
@@ -98,15 +106,15 @@ class Signup extends Component {
                         <input type="mail" name="email" value={email} onChange={this.handleChange} />
                     </div>
 
+                    {
+                        this.state.passwordSecurity ?
+                            <span>{this.state.passwordSecurity}</span>
+                            :
+                            <></>
+                    }
                     <div>
-                        {
-                            this.state.passwordSecurity ?
-                                <span>{this.state.passwordSecurity}</span>
-                                :
-                                <></>
-                        }
-                        <p>contraseña</p>
-                        <input type="password" name="password" value={password} onChange={this.handleChange} onFocus={this.handlePasswordSecurity} />
+                        <p>Contraseña</p>
+                        <input type="password" name="password" value={password} onChange={this.handleChangeAndPasswordSecurity} />
                     </div>
 
                     <div>

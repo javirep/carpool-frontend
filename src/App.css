@@ -263,12 +263,13 @@ header .button {
 
 
 label{
-  text-decoration: underline;
   display: inline-block;
   text-align: center;
   margin-left: 4vw ;
 }
-
+label:focus{
+  text-decoration: underline;
+}
 /* OTHERS */
 
 .empty-info{

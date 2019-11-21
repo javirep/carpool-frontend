@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom"
 import axios from "axios";
+import cities from "../../../lib/zip-codes.json"
 
 class CreateRide extends Component {
     state = {
         departureTime: "09:00",
         departureZip: "",
         departurePlace: "",
+        departureCity: "",
         arrivalTime: "09:30",
         arrivalZip: "",
         arrivalPlace: "",
+        arrivalCity: "",
         frequency: "L-V",
         car: true,
+        cityName: "",
         showLink: false,
         errorMessage: ""
     };
@@ -59,7 +63,7 @@ class CreateRide extends Component {
         })
     };
 
-    handleChange = event => {
+    handleChange = async event => {
         const { name, value } = event.target;
         this.setState({ [name]: value });
     };
@@ -67,6 +71,32 @@ class CreateRide extends Component {
     handleChangeCar = event => {
         const { value } = event.target;
         value === "Si" ? this.setState({ car: true }) : this.setState({ car: false })
+    }
+
+    findArrivalCity = async (zip, stateKey) => {
+
+        await this.setState({
+            arrivalCity: ""
+        })
+
+        let cityName = ""
+
+        await cities.map(city => {
+            if (city.codigopostalid === zip) {
+
+                cityName = city.poblacion
+            }
+        })
+
+        this.setState({
+            [stateKey]: cityName
+        })
+    }
+
+    handleChangeAndfindArrivalCity = (event, stateKey) => {
+        console.log(event.target.value)
+        this.handleChange(event);
+        this.findArrivalCity(event.target.value, stateKey);
     }
 
     render() {
@@ -78,14 +108,28 @@ class CreateRide extends Component {
                     <div>
                         <p>De</p>
                         <input style={{ width: "20vw" }} type="text" name="departurePlace" placeholder="Plaza o calle" value={departurePlace} onChange={this.handleChange} />
-                        <input style={{ width: "10vw" }} type="text" name="departureZip" placeholder="C.P." value={departureZip} onChange={this.handleChange} />
-                        <input style={{ width: "10vw" }} type="text" placeholder="Ciudad" />
+                        <input style={{ width: "10vw" }} type="text" name="departureZip" placeholder="C.P." value={departureZip} onChange={(e) => this.handleChangeAndfindArrivalCity(e, "departureCity")} />
+                        <label style={{ width: "auto", minWidth: "10vw", border: "none" }} className="select-input input">
+                            {
+                                this.state.departureCity ?
+                                    this.state.departureCity
+                                    :
+                                    "Ciudad"
+                            }
+                        </label>
                     </div>
                     <div>
                         <p>A</p>
                         <input style={{ width: "20vw" }} type="text" name="arrivalPlace" placeholder="Plaza o calle" value={arrivalPlace} onChange={this.handleChange} />
-                        <input style={{ width: "10vw" }} type="text" name="arrivalZip" placeholder="C.P." value={arrivalZip} onChange={this.handleChange} />
-                        <input style={{ width: "10vw" }} type="text" placeholder="Ciudad" />
+                        <input style={{ width: "10vw" }} type="text" name="arrivalZip" placeholder="C.P." value={arrivalZip} onChange={(e) => this.handleChangeAndfindArrivalCity(e, "arrivalCity")} />
+                        <label style={{ width: "auto", minWidth: "10vw", border: "none" }} className="select-input input">
+                            {
+                                this.state.arrivalCity ?
+                                    this.state.arrivalCity
+                                    :
+                                    "Ciudad"
+                            }
+                        </label>
                     </div>
                     <div>
                         <p style={{ position: "relative", left: "2.6vw" }}>Hora de salida</p>
