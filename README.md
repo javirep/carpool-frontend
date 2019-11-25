@@ -14,16 +14,16 @@ Carpooling isn't just saving money and time to people and helping to decrease th
 ## User Stories
 
 - **ANON:**
-    - **Home Page:** As an anon I can see the home page with info about the app. (clicking on the "search ride" and "create ride" buttons will redirect me to the Log in)
-    - **Signup:** As an anon I can sign up in the platform so that I can start being part of Carpool.
-    - **Login:** As a user I can login to the platform so that I can access my profile or start searching / creating rides.
+    - **Home Page:** As an anon (non-registered user) I can see the home page. (clicking on the "search ride" and "create ride" buttons will redirect me to the Log in)
+    - **Signup:** As an anon I can sign up in the platform so that I can start being part of Carpool (the user data will be stored in DB in mongoDB).
+    - **Login:** As a user I can login to the platform so that I can access my profile or start searching / creating rides. 
     - **404:** As an anon/user/admin I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault.
 
 - **USER:**
     - **User Profile:** As a user I can see my user profile, which will display my usual rides. I also have a button to display all the notification (messages) that other users may have sent me. 
-    - **Creating Rides:** As a user I can create a usual ride by filling a form. (we will ask for the departure location, the destination, the time of departure and arrival, the frequency and whether you have a car or not. 
-    - **Searching Rides:** As a user I can search for rides by filling a form. Rides that matches the requirements will be displayed, and the user can access to the profile of the user who has created the ride. 
-    - **Other Users Profiles:** Once I found a user who has an itinerary similar to mine I can access his/her profile. There I will be able to see his usual rides and send him a notification(message) so he can contact me back. 
+    - **Publishing Rides:** As a user I can publish a usual ride by filling a form. (we will ask for the departure location, the destination, the time of departure and arrival, the frequency and whether you have a car or not. 
+    - **Searching Rides:** As a user I can see the rides that other users have publised. Also, there will be a method for the user to filter the rides that are displayed (i.e. the user will be able to filter the rides that departures from a exact location, exact time ... ) from there the user will be able to visit the other user profile.  
+    - **Other Users Profiles:** Once I found a user who has an itinerary similar to mine I can access his/her profile. There I will be able to see his usual rides and send him a notification(message) so that he/she can contact me back. 
 
 ## Backlog
 
